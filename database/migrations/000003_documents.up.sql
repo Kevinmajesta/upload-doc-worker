@@ -1,0 +1,10 @@
+CREATE TABLE documents (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    file_path VARCHAR(500) NOT NULL,
+    employee_id INTEGER NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    
+    CONSTRAINT fk_documents_employee FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE
+);

@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  myapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+      - db
+    environment:
+      ENV: "dev"
+      PORT: "3000"
+      POSTGRES_HOST: "db"        
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: "upload-karyawan"
+      POSTGRES_PASSWORD: "upload-karyawan"
+      POSTGRES_DATABASE: "upload-karyawan"
+      REDIS_HOST: "redis"         
+      REDIS_PORT: "6379"
+      JWT_SECRET_KEY: "b97d6474d80258e46c93b27d34552c574706566e19198d6b1c78610ed43f30d4b6df059029f5b225bc6faa43ca15eaecbe076c5c30a4d8bea50993a0cb30b310c35253e1323814b14b94e47e545a01c7cb219adcdd2bb7cfb8753a7383059b06dcef5e67d31a0274bd13c3dc1796c254f31d0993c2840d76d62de1302e682adc90b44f7cb25e4329c3418f957f5848080d92338949b680cc3c076d43272606cdd580e430a6ba35e4fa324342af56efc556a8fc942f6b7d62a15c213857abbf62e15ea43a0d00570f59d938a5d02f82d06eb2d3e84ab2d38a27bfc8cc94741e7b10b18abd9df4cb698b0fe511fc689f2817872077ebbe32f8be7c831f81d1063d"
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=upload-karyawan
+      - POSTGRES_PASSWORD=upload-karyawan
+      - POSTGRES_DB=upload-karyawan
+    ports:
+      - "5432:5432"
